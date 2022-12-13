@@ -93,7 +93,17 @@ def run_AI_all(pathdir,filename,BF_try_time=60,BF_ops_file_type="14ops", polyfit
     if symmetry_plus_result[0]==-1:
         idx_min = -1
     else:
-        idx_min = np.argmin(np.array([symmetry_plus_result[0], symmetry_minus_result[0], symmetry_multiply_result[0], symmetry_divide_result[0], separability_plus_result[0], separability_multiply_result[0]]))
+        min_error_array = [symmetry_plus_result[0], symmetry_minus_result[0], symmetry_multiply_result[0], symmetry_divide_result[0], separability_plus_result[0], separability_multiply_result[0]]
+        
+        # Change all resultant errors to integers
+        for i in range(6):
+          # If the element is a torch.Tensor
+          if type(min_error_array[i]) == torch.Tensor:
+            # Extract the number in the tensor as a number
+            min_error_array[i] = min_error_array[i].item()
+
+        #Find the minimum error
+        idx_min = np.argmin(np.array(min_error_array))
 
     print("")
     # Check if compositionality is better than the best so far
