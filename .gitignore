@@ -9,4 +9,6 @@
 /*.egg-info
 /*.egg
 
-./ai-feynman.ipynb
+ai-feynman.ipynb
+
+/results/
